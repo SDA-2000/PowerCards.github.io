@@ -8,14 +8,25 @@
 </head>
 <body>
   <h1>Power Cards</h1>
+
   <div class="game">
-    <div class="side" id="playerSide"><h2 id="playerName">Цонду (Вы)</h2></div>
-    <div class="side" id="botSide"><h2 id="botName">Тенцинг</h2></div>
+    <div class="side" id="playerSide">
+      <h2 id="playerName">Цонду (Вы)</h2>
+    </div>
+    <div class="side" id="botSide">
+      <h2 id="botName">Тенцинг</h2>
+    </div>
   </div>
+
   <div id="status">Выберите своего и вражеского монстра</div>
-  <button id="endTurnBtn">Закончить ход</button>
-  <button id="restartBtn">Начать заново</button>
+
+  <!-- Фиксированный блок управления -->
+  <div class="controls">
+    <button id="endTurnBtn">Закончить ход</button>
+    <button id="restartBtn">Начать заново</button>
+  </div>
 
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
+

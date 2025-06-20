@@ -5,6 +5,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 body {
   font-family: 'Press Start 2P', monospace;
   background: #121212;
@@ -14,6 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 100px;
 }
 
 h1 {
@@ -25,31 +27,52 @@ h1 {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  max-width: 00px;
+  max-width: 1000px;
   flex-wrap: wrap;
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 }
 
 .side {
   flex: 1;
   padding: 10px;
   min-width: 45%;
+  display: flex;
+  flex-direction: column;
 }
 
-#playerName, #botName {
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 1.2rem;
-    transition: color 0.3s;
-
+#playerSide,
+#botSide {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  overflow: visible; 
 }
 
-.active-turn{
-  color: #4CAF50
+@media (max-width: 600px) {
+  #playerSide,
+  #botSide {
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
 }
 
-.inactive-turn{
-  color: #888
+#playerName,
+#botName {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.active-turn {
+  color: #4CAF50;
+}
+
+.inactive-turn {
+  color: #888;
 }
 
 .monster {
@@ -99,7 +122,6 @@ h1 {
   z-index: 2;
 }
 
-
 .selected {
   border-color: yellow;
   box-shadow: 0 0 10px yellow;
@@ -108,19 +130,25 @@ h1 {
 #status {
   margin: 20px 0;
   font-size: 1em;
+  text-align: center;
 }
 
-@media (max-width: 500px) {
-  .game {
-    flex-direction: column;
-  }
-  .side {
-    min-width: 100%;
-  }
+.controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #121212;
+  padding: 12px 0;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 10;
 }
 
-#endTurnBtn, #restartBtn {
-  margin-top: 16px;
+#endTurnBtn,
+#restartBtn {
   padding: 10px 20px;
   font-size: 1rem;
   border: none;
@@ -141,4 +169,26 @@ h1 {
 #restartBtn {
   display: none;
 }
+
+@media (max-width: 500px) {
+  .game {
+    flex-direction: column;
+  }
+
+  .side {
+    min-width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #endTurnBtn,
+  #restartBtn {
+    width: 80%;
+    font-size: 0.9rem;
+  }
+}
+
 
