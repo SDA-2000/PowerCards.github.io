@@ -93,3 +93,7 @@ export function attack() {
     setTimeout(botTurn, 500);
 }
 
+export function resetGame() {
+    generateBalancedMonsters();
+    render();
+}

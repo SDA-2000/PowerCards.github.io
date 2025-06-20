@@ -1,6 +1,6 @@
 import {
   state,
-  getCurrentTurn
+  getCurrentTurn, resetGame
 } from './game.js';
 
     const monsterImagePath = 'assets/images/Monster (2).png';
@@ -27,16 +27,20 @@ import {
         return div;
     }
 
-
     export function render() {
         const currentTurn = getCurrentTurn();
         const playerSide = document.getElementById('playerSide');
         const botSide = document.getElementById('botSide');
         const status = document.getElementById('status');
-
+        const restartBtn = document.getElementById('restartBtn');
+        status.innerHTML = "Выберите своего и вражеского монстра"
+        const isGameOver =
+        state.playerMonsters.length === 0 ||
+        state.botMonsters.length === 0;
         const endTurnButton = document.getElementById('endTurnBtn');
         playerSide.innerHTML = '';
         botSide.innerHTML = '';
+        restartBtn.style.display = 'none';
 
         const playerName = document.createElement('h2');
         playerName.id = 'playerName';
@@ -73,18 +77,22 @@ import {
             const monster = createMonsterElement(hp, i, 'bot', state.selectedBot);
             botSide.appendChild(monster);
         });
+        if(isGameOver){
 
-        if (state.playerMonsters.length === 0 && state.botMonsters.length === 0) {
-            status.textContent = "Ничья!";
-        } else if (state.botMonsters.length === 0) {
-            status.textContent = "Победа!";
-        } else if (state.playerMonsters.length === 0) {
-            status.textContent = "Поражение!";
-        } else {
-            status.textContent = "Выберите своего и вражеского монстра";
+            if (state.playerMonsters.length === 0 && state.botMonsters.length === 0) {
+                status.textContent = "Ничья!";
+                restartBtn.style.display = 'inline-block';
+            } else if (state.botMonsters.length === 0) {
+                status.textContent = "Победа!";
+                restartBtn.style.display = 'inline-block';
+            } else if (state.playerMonsters.length === 0) {
+                status.textContent = "Поражение!";
+                restartBtn.style.display = 'inline-block';
+            } else {
+                status.textContent = "Выберите своего и вражеского монстра";
+                restartBtn.style.display = 'none';
+            }
+
         }
-
-    
+            
 }
-
-

@@ -27,6 +27,7 @@ h1 {
   width: 100%;
   max-width: 00px;
   flex-wrap: wrap;
+  padding-bottom: 100px;
 }
 
 .side {
@@ -118,7 +119,7 @@ h1 {
   }
 }
 
-#endTurnBtn {
+#endTurnBtn, #restartBtn {
   margin-top: 16px;
   padding: 10px 20px;
   font-size: 1rem;
@@ -129,10 +130,15 @@ h1 {
   cursor: pointer;
   transition: background 0.3s;
   font-family: "Press Start 2P";
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 #endTurnBtn:disabled {
   background: #666;
   cursor: not-allowed;
+}
+
+#restartBtn {
+  display: none;
 }
 
