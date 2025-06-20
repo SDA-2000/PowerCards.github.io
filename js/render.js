@@ -5,29 +5,41 @@ import {
   selectedBot
 } from './game.js';
 
+const monsterImage = './assets/images/Monster (2).png';
+
 export function render() {
   const playerSide = document.getElementById('playerSide');
   const botSide = document.getElementById('botSide');
   const status = document.getElementById('status');
 
-  playerSide.innerHTML = "<h2>Цонду (Вы)</h2>";
+  playerSide.innerHTML = "<h2>Цонду</h2>";
   botSide.innerHTML = "<h2>Тенцинг</h2>";
 
   playerMonsters.forEach((hp, i) => {
     const div = document.createElement('div');
     div.className = 'monster' + (selectedPlayer === i ? ' selected' : '');
-    div.textContent = `Монстр ${i + 1}: ${hp}`;
     div.dataset.side = 'player';
     div.dataset.index = i;
+
+    div.innerHTML = `
+      <img src="${monsterImage}" alt="monster" />
+      <div class="hp">HP: ${hp}</div>
+    `;
+
     playerSide.appendChild(div);
   });
 
   botMonsters.forEach((hp, i) => {
     const div = document.createElement('div');
     div.className = 'monster' + (selectedBot === i ? ' selected' : '');
-    div.textContent = `Монстр ${i + 1}: ${hp}`;
     div.dataset.side = 'bot';
     div.dataset.index = i;
+
+    div.innerHTML = `
+      <img src="${monsterImage}" alt="monster" />
+      <div class="hp">HP: ${hp}</div>
+    `;
+
     botSide.appendChild(div);
   });
 
@@ -41,3 +53,4 @@ export function render() {
     status.textContent = "Выберите своего и вражеского монстра";
   }
 }
+
