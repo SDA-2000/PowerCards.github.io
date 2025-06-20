@@ -17,25 +17,25 @@ export function handlePlayerClick({ side, index }) {
 }
 
 export function attack() {
-  if (selectedPlayer == null || selectedBot == null) return;
+    if (selectedPlayer == null || selectedBot == null) return;
 
-  let p = playerMonsters[selectedPlayer];
-  let b = botMonsters[selectedBot];
+    let p = playerMonsters[selectedPlayer];
+    let b = botMonsters[selectedBot];
 
-  p -= b;
-  b -= playerMonsters[selectedPlayer];
+    p -= b;
+    b -= playerMonsters[selectedPlayer];
 
-  if (p <= 0) playerMonsters.splice(selectedPlayer, 1);
-  else playerMonsters[selectedPlayer] = p;
+    if (p <= 0) playerMonsters.splice(selectedPlayer, 1);
+    else playerMonsters[selectedPlayer] = p;
 
-  if (b <= 0) botMonsters.splice(selectedBot, 1);
-  else botMonsters[selectedBot] = b;
+    if (b <= 0) botMonsters.splice(selectedBot, 1);
+    else botMonsters[selectedBot] = b;
 
-  selectedPlayer = null;
-  selectedBot = null;
+    selectedPlayer = null;
+    selectedBot = null;
 
-  render();
+    render();
 
-  setTimeout(botTurn, 500);
+    setTimeout(botTurn, 500);
 }
 

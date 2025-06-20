@@ -5,29 +5,30 @@ import {
   selectedBot
 } from './game.js';
 
-    const monsterImagePath = 'assets/images/monster.png';
+    const monsterImagePath = 'assets/images/Monster (2).png';
 
     function createMonsterElement(hp, i, side, selectedIndex) {
-    const div = document.createElement('div');
-    div.className = 'monster' + (selectedIndex === i ? ' selected' : '');
-    div.dataset.side = side;
-    div.dataset.index = i;
+        const div = document.createElement('div');
+        div.className = 'monster' + (selectedIndex === i ? ' selected' : '');
+        div.dataset.side = side;
+        div.dataset.index = i;
 
-    const img = new Image();
-    img.src = monsterImagePath;
-    img.alt = 'monster';
-    img.className = 'monster-image';
-    img.style.imageRendering = 'pixelated';
+        const img = new Image();
+        img.src = monsterImagePath;
+        img.alt = 'monster';
+        img.className = 'monster-image';
+        img.style.imageRendering = 'pixelated';
 
-    const hpDiv = document.createElement('div');
-    hpDiv.className = 'hp';
-    hpDiv.textContent = `HP: ${hp}`;
+        const hpDiv = document.createElement('div');
+        hpDiv.className = 'hp';
+        hpDiv.textContent = `HP: ${hp}`;
 
-    div.appendChild(img);
-    div.appendChild(hpDiv);
+        div.appendChild(img);
+        div.appendChild(hpDiv);
 
-    return div;
+        return div;
     }
+
 
     export function render() {
     const playerSide = document.getElementById('playerSide');
