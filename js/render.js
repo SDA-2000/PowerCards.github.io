@@ -35,6 +35,16 @@ import {
     const botSide = document.getElementById('botSide');
     const botName = document.getElementById('botName');
     const status = document.getElementById('status');
+
+    const endTurnButton = document.getElementById('endTurnBtn');
+
+    if (getCurrentTurn() === 'player') {
+        endTurnButton.disabled = !(state.selectedPlayer !== null && state.selectedBot !== null);
+        endTurnButton.textContent = 'Закончить ход';
+    } else {
+        endTurnButton.disabled = true;
+        endTurnButton.textContent = 'Ход противника';
+    }
     
     playerSide.innerHTML = '<h2 id="playerName">Цонду (Вы)</h2>';
     botSide.innerHTML = '<h2 id="botName">Тенцинг</h2>';

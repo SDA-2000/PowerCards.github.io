@@ -1,26 +1,40 @@
-    import { render } from './render.js';
-    import { setCurrentTurn, state } from './game.js';
+import { state, setCurrentTurn} from './game.js';
+import { render } from './render.js';
 
-    export function botTurn() {
-    if (state.playerMonsters.length === 0 || state.botMonsters.length === 0) return;
+export function botTurn() {
+  if (state.playerMonsters.length === 0 || state.botMonsters.length === 0) return;
 
-    let botIndex = state.botMonsters.indexOf(Math.max(...state.botMonsters));
-    let playerIndex = state.playerMonsters.indexOf(Math.min(...state.playerMonsters));
+  const botIndex = state.botMonsters.indexOf(Math.max(...state.botMonsters));
+  const playerIndex = state.playerMonsters.indexOf(Math.min(...state.playerMonsters));
 
-    let b = state.botMonsters[botIndex];
-    let p = state.playerMonsters[playerIndex];
+  state.selectedBot = botIndex;
+  state.selectedPlayer = null;
+  render();
 
-    b -= p;
-    p -= state.botMonsters[botIndex];
-
-    if (b <= 0) state.botMonsters.splice(state.botIndex, 1);
-    else state.botMonsters[state.botIndex] = b;
-
-    if (p <= 0) state.playerMonsters.splice(state.playerIndex, 1);
-    else state.playerMonsters[state.playerIndex] = p;
-
-    setCurrentTurn('player');
-
+  setTimeout(() => {
+    state.selectedPlayer = playerIndex;
     render();
-    }
+
+    setTimeout(() => {
+      let b = state.botMonsters[botIndex];
+      let p = state.playerMonsters[playerIndex];
+
+      b -= p;
+      p -= state.botMonsters[botIndex];
+
+      if (b <= 0) state.botMonsters.splice(botIndex, 1);
+      else state.botMonsters[botIndex] = b;
+
+      if (p <= 0) state.playerMonsters.splice(playerIndex, 1);
+      else state.playerMonsters[playerIndex] = p;
+
+      state.selectedPlayer = null;
+      state.selectedBot = null;
+
+      setCurrentTurn('player');
+      render();
+    }, 600);
+  }, 600);
+}
+
 
