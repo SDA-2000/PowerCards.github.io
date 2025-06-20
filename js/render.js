@@ -2,8 +2,11 @@ import {
   state,
   getCurrentTurn, resetGame
 } from './game.js';
+import { playSound } from './sounds.js';
 
-    const monsterImagePath = 'assets/images/Monster (2).png';
+    const monsterImagePath1 = 'assets/images/monster2.png';
+    const monsterImagePath2 = 'assets/images/Monster (2).png';
+    const monsterImagePath3 = 'assets/images/monster3.png';
 
     function createMonsterElement(hp, i, side, selectedIndex) {
         const div = document.createElement('div');
@@ -12,7 +15,15 @@ import {
         div.dataset.index = i;
 
         const img = new Image();
-        img.src = monsterImagePath;
+        if(hp <= 50){
+            img.src = monsterImagePath1;
+        }
+        else if(hp < 180){
+            img.src = monsterImagePath2;
+        }
+        else {
+            img.src = monsterImagePath3;
+        }
         img.alt = 'monster';
         img.className = 'monster-image';
         img.style.imageRendering = 'pixelated';
@@ -44,12 +55,12 @@ import {
 
         const playerName = document.createElement('h2');
         playerName.id = 'playerName';
-        playerName.textContent = 'Цонду (Вы)';
+        playerName.textContent = 'Вы';
         playerSide.appendChild(playerName);
 
         const botName = document.createElement('h2');
         botName.id = 'botName';
-        botName.textContent = 'Тенцинг';
+        botName.textContent = 'Тренировочный манекен';
         botSide.appendChild(botName);
 
         if (currentTurn === 'player') {
@@ -84,9 +95,11 @@ import {
                 restartBtn.style.display = 'inline-block';
             } else if (state.botMonsters.length === 0) {
                 status.textContent = "Победа!";
+                playSound("win");
                 restartBtn.style.display = 'inline-block';
             } else if (state.playerMonsters.length === 0) {
                 status.textContent = "Поражение!";
+                playSound("lose");
                 restartBtn.style.display = 'inline-block';
             } else {
                 status.textContent = "Выберите своего и вражеского монстра";

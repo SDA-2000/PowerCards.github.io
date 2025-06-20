@@ -1,5 +1,6 @@
 import { render } from './render.js';
 import { botTurn } from './bot.js';
+import { playSound } from './sounds.js';
 
 export const state = {
     playerMonsters : [100, 90, 80],
@@ -62,6 +63,7 @@ export function setCurrentTurn(turn){
 }
 
 export function handlePlayerClick({ side, index }) {
+    playSound("cardClick");
   if (side === 'player') {
     state.selectedPlayer = parseInt(index);
   } else if (side === 'bot') {

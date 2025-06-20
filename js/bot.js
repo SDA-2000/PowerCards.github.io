@@ -1,40 +1,42 @@
 import { state, setCurrentTurn} from './game.js';
 import { render } from './render.js';
+import { playSound } from './sounds.js';
 
 export function botTurn() {
   if (state.playerMonsters.length === 0 || state.botMonsters.length === 0) return;
 
-  const botIndex = state.botMonsters.indexOf(Math.max(...state.botMonsters));
-  const playerIndex = state.playerMonsters.indexOf(Math.min(...state.playerMonsters));
-
-  state.selectedBot = botIndex;
-  state.selectedPlayer = null;
-  render();
-
-  setTimeout(() => {
-    state.selectedPlayer = playerIndex;
+    const botIndex = state.botMonsters.indexOf(Math.max(...state.botMonsters));
+    const playerIndex = state.playerMonsters.indexOf(Math.min(...state.playerMonsters));
+    playSound("cardClick");
+    state.selectedBot = botIndex;
+    state.selectedPlayer = null;
     render();
 
     setTimeout(() => {
-      let b = state.botMonsters[botIndex];
-      let p = state.playerMonsters[playerIndex];
+        playSound("cardClick");
+        state.selectedPlayer = playerIndex;
+        render();
 
-      b -= p;
-      p -= state.botMonsters[botIndex];
+        setTimeout(() => {
+        let b = state.botMonsters[botIndex];
+        let p = state.playerMonsters[playerIndex];
 
-      if (b <= 0) state.botMonsters.splice(botIndex, 1);
-      else state.botMonsters[botIndex] = b;
+        b -= p;
+        p -= state.botMonsters[botIndex];
 
-      if (p <= 0) state.playerMonsters.splice(playerIndex, 1);
-      else state.playerMonsters[playerIndex] = p;
+        if (b <= 0) state.botMonsters.splice(botIndex, 1);
+        else state.botMonsters[botIndex] = b;
 
-      state.selectedPlayer = null;
-      state.selectedBot = null;
+        if (p <= 0) state.playerMonsters.splice(playerIndex, 1);
+        else state.playerMonsters[playerIndex] = p;
 
-      setCurrentTurn('player');
-      render();
+        state.selectedPlayer = null;
+        state.selectedBot = null;
+
+        setCurrentTurn('player');
+        render();
+        }, 600);
     }, 600);
-  }, 600);
-}
+    }
 
 
