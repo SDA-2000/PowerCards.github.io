@@ -35,6 +35,22 @@ h1 {
   min-width: 45%;
 }
 
+#playerName, #botName {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+
+}
+
+.active-turn{
+  color: #4CAF50
+}
+
+.inactive-turn{
+  color: #888
+}
+
 .monster {
   position: relative;
   width: 100px;

@@ -1,23 +1,25 @@
-    import { playerMonsters, botMonsters } from './game.js';
     import { render } from './render.js';
+    import { setCurrentTurn, state } from './game.js';
 
     export function botTurn() {
-    if (playerMonsters.length === 0 || botMonsters.length === 0) return;
+    if (state.playerMonsters.length === 0 || state.botMonsters.length === 0) return;
 
-    let botIndex = botMonsters.indexOf(Math.max(...botMonsters));
-    let playerIndex = playerMonsters.indexOf(Math.min(...playerMonsters));
+    let botIndex = state.botMonsters.indexOf(Math.max(...state.botMonsters));
+    let playerIndex = state.playerMonsters.indexOf(Math.min(...state.playerMonsters));
 
-    let b = botMonsters[botIndex];
-    let p = playerMonsters[playerIndex];
+    let b = state.botMonsters[botIndex];
+    let p = state.playerMonsters[playerIndex];
 
     b -= p;
-    p -= botMonsters[botIndex];
+    p -= state.botMonsters[botIndex];
 
-    if (b <= 0) botMonsters.splice(botIndex, 1);
-    else botMonsters[botIndex] = b;
+    if (b <= 0) state.botMonsters.splice(state.botIndex, 1);
+    else state.botMonsters[state.botIndex] = b;
 
-    if (p <= 0) playerMonsters.splice(playerIndex, 1);
-    else playerMonsters[playerIndex] = p;
+    if (p <= 0) state.playerMonsters.splice(state.playerIndex, 1);
+    else state.playerMonsters[state.playerIndex] = p;
+
+    setCurrentTurn('player');
 
     render();
     }

@@ -1,8 +1,6 @@
 import {
-  playerMonsters,
-  botMonsters,
-  selectedPlayer,
-  selectedBot
+  state,
+  getCurrentTurn
 } from './game.js';
 
     const monsterImagePath = 'assets/images/Monster (2).png';
@@ -31,33 +29,49 @@ import {
 
 
     export function render() {
+    const currentTurn = getCurrentTurn();
     const playerSide = document.getElementById('playerSide');
+    const playerName = document.getElementById('playerName');
     const botSide = document.getElementById('botSide');
+    const botName = document.getElementById('botName');
     const status = document.getElementById('status');
+    
+    playerSide.innerHTML = '<h2 id="playerName">Цонду (Вы)</h2>';
+    botSide.innerHTML = '<h2 id="botName">Тенцинг</h2>';
 
-    playerSide.innerHTML = '<h2>Цонду</h2>';
-    botSide.innerHTML = '<h2>Тенцинг</h2>';
+    if (currentTurn === 'player') {
+        playerSide.classList.add('active-turn');
+        playerSide.classList.remove('inactive-turn');
+        botSide.classList.add('inactive-turn');
+        botSide.classList.remove('active-turn');
+    } else {
+        botName.classList.add('active-turn');
+        botName.classList.remove('inactive-turn');
+        playerName.classList.add('inactive-turn');
+        playerName.classList.remove('active-turn');
+    }
 
-    playerMonsters.forEach((hp, i) => {
-        const monster = createMonsterElement(hp, i, 'player', selectedPlayer);
+    state.playerMonsters.forEach((hp, i) => {
+        const monster = createMonsterElement(hp, i, 'player', state.selectedPlayer);
         playerSide.appendChild(monster);
     });
 
-    botMonsters.forEach((hp, i) => {
-        const monster = createMonsterElement(hp, i, 'bot', selectedBot);
+    state.botMonsters.forEach((hp, i) => {
+        const monster = createMonsterElement(hp, i, 'bot', state.selectedBot);
         botSide.appendChild(monster);
     });
 
-    // обновляем статус
-    if (playerMonsters.length === 0 && botMonsters.length === 0) {
+    if (state.playerMonsters.length === 0 && state.botMonsters.length === 0) {
         status.textContent = "Ничья!";
-    } else if (botMonsters.length === 0) {
+    } else if (state.botMonsters.length === 0) {
         status.textContent = "Победа!";
-    } else if (playerMonsters.length === 0) {
+    } else if (state.playerMonsters.length === 0) {
         status.textContent = "Поражение!";
     } else {
         status.textContent = "Выберите своего и вражеского монстра";
     }
+
+  
     }
 
 

@@ -1,39 +1,50 @@
 import { render } from './render.js';
 import { botTurn } from './bot.js';
 
-export let playerMonsters = [100, 90, 80];
-export let botMonsters = [95, 85, 75];
+export const state = {
+    playerMonsters : [100, 90, 80],
+    botMonsters : [95, 85, 75],
+    selectedPlayer: null,
+    selectedBot: null,
+    currentTurn: 'player'
+}
 
-export let selectedPlayer = null;
-export let selectedBot = null;
+
+export function getCurrentTurn(){
+    return state.currentTurn;
+}
+
+export function setCurrentTurn(turn){
+    state.currentTurn = turn;
+}
 
 export function handlePlayerClick({ side, index }) {
   if (side === 'player') {
-    selectedPlayer = parseInt(index);
+    state.selectedPlayer = parseInt(index);
   } else if (side === 'bot') {
-    selectedBot = parseInt(index);
+    state.selectedBot = parseInt(index);
   }
   render();
 }
 
 export function attack() {
-    if (selectedPlayer == null || selectedBot == null) return;
+    if (state.selectedPlayer == null || state.selectedBot == null) return;
 
-    let p = playerMonsters[selectedPlayer];
-    let b = botMonsters[selectedBot];
+    let p = state.playerMonsters[state.selectedPlayer];
+    let b = state.botMonsters[state.selectedBot];
 
     p -= b;
-    b -= playerMonsters[selectedPlayer];
+    b -= state.playerMonsters[state.selectedPlayer];
 
-    if (p <= 0) playerMonsters.splice(selectedPlayer, 1);
-    else playerMonsters[selectedPlayer] = p;
+    if (p <= 0) state.playerMonsters.splice(state.selectedPlayer, 1);
+    else state.playerMonsters[state.selectedPlayer] = p;
 
-    if (b <= 0) botMonsters.splice(selectedBot, 1);
-    else botMonsters[selectedBot] = b;
+    if (b <= 0) state.botMonsters.splice(state.selectedBot, 1);
+    else state.botMonsters[state.selectedBot] = b;
 
-    selectedPlayer = null;
-    selectedBot = null;
-
+    state.selectedPlayer = null;
+    state.selectedBot = null;
+    setCurrentTurn('bot');
     render();
 
     setTimeout(botTurn, 500);
