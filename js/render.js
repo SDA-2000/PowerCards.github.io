@@ -10,7 +10,7 @@ export function render() {
   const botSide = document.getElementById('botSide');
   const status = document.getElementById('status');
 
-  playerSide.innerHTML = "<h2>Цонду</h2>";
+  playerSide.innerHTML = "<h2>Цонду (Вы)</h2>";
   botSide.innerHTML = "<h2>Тенцинг</h2>";
 
   playerMonsters.forEach((hp, i) => {
