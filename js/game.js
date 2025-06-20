@@ -9,6 +9,49 @@ export const state = {
     currentTurn: 'player'
 }
 
+export function generateBalancedMonsters() {
+  const minCards = 3;
+  const maxCards = 5;
+  const totalCards = getRandom(6, 10);
+  const minPower = 20;
+  const maxPower = 200;
+
+  let allCards = Array.from({ length: totalCards }, () => getRandom(minPower, maxPower));
+
+  allCards.sort((a, b) => b - a);
+
+  let player = [];
+  let bot = [];
+  let playerSum = 0;
+  let botSum = 0;
+
+  for (const card of allCards) {
+    if (
+      (player.length < maxCards && (playerSum <= botSum || bot.length >= maxCards)) ||
+      bot.length >= maxCards
+    ) {
+      player.push(card);
+      playerSum += card;
+    } else {
+      bot.push(card);
+      botSum += card;
+    }
+  }
+
+  if (player.length < minCards || bot.length < minCards) {
+    return generateBalancedMonsters();
+  }
+
+  state.playerMonsters = player;
+  state.botMonsters = bot;
+  state.selectedPlayer = null;
+  state.selectedBot = null;
+  state.currentTurn = 'player';
+}
+
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 export function getCurrentTurn(){
     return state.currentTurn;

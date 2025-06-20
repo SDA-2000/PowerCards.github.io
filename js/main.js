@@ -1,5 +1,5 @@
     import { render } from './render.js';
-    import { handlePlayerClick, attack } from './game.js';
+    import { handlePlayerClick, attack, generateBalancedMonsters } from './game.js';
 
     const endTurnButton = document.getElementById("endTurnBtn");
 
@@ -10,4 +10,5 @@
         attack();
     })
 
+    generateBalancedMonsters();
     render();
